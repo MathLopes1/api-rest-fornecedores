@@ -14,8 +14,23 @@ class Produto {
         this.versao = versao
     }
 
+    //Validando informações recebidas
+    validar (){
+
+        //Validando titulo
+        if(typeof this.titulo !== 'string' || this.titulo.length === 0){
+            throw new Error('O campo está inválido')
+        }   
+
+        //Validando preco
+        if(typeof this.preco !== 'number' || this.preco === 0){
+            throw new Error('O campo preco está inválido')
+        }
+    }
+
     //Metodo para inserir as informações recebidas nos respectivos campos do Database
     async criar() {
+        this.validar()
         const resultado = await Tabela.inserir({
             titulo: this.titulo,
             preco: this.preco,
